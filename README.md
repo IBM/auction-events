@@ -2,16 +2,19 @@
 
 >Hyperledger Fabric sample Using Event Handling with IBM Blockchain Platform V2.0
 
-This code pattern demonstrates leveraging the event handling feature within an application that is based on using an IKS cluster with IBM Blockchain Platform V2.0 service on IBM Cloud.  We apply this use case to an auction use case. It shows how events can be emitted by Hyperledger Fabric SDK and subscribed by external applications.  The application is implemented in Node.js and using the Hyperledger Fabric SDK for node.js to connect with the network and catch events.
+This code pattern demonstrates leveraging the event handling feature within an application that is based on using an IKS cluster with IBM Blockchain Platform V2.0 service on IBM Cloud.  We apply this use case to an auction use case. It shows how events can be emitted by using the Hyperledger Fabric SDK and subscribed to by external applications.  The application is implemented in Node.js and is using the Hyperledger Fabric SDK for node.js to connect with the network, set up an event listener and catch tranactional events.
 
-A client application may use the Fabric Node.js client to register a "listener" to receive blocks as they are added to the channel ledger. We call these "channel-based events", and they allow a client to start to receive blocks from a specific block number, allowing event processing to run normally on blocks that may have been missed. The Fabric Node.js client can also assist client applications by processing the incoming blocks and looking for specific transactions or chaincode events. This allows a client application to be notified of transaction completion or arbitrary chaincode events without having to perform multiple queries or search through the blocks as they are received.  After the transaction proposal has been successfully endorsed, and before the transaction message has been successfully broadcast to the orderer, the application should register a listener to be notified of the event when the transaction achieves finality, which is when the block containing the transaction gets added to the peer's ledger/blockchain. 
+A client application may use the Fabric Node.js client to register a "listener" to receive blocks as they are added to the channel ledger. This is known as "channel-based events", and it allows a client to start to receive blocks from a specific block number, allowing event processing to run normally on blocks that may have been missed. The Fabric Node.js client can also assist client applications by processing the incoming blocks and looking for specific transactions or chaincode events. This allows a client application to be notified of transaction completion or arbitrary chaincode events without having to perform multiple queries or search through the blocks as they are received.  After the transaction proposal has been successfully endorsed, and before the transaction message has been successfully broadcasted to the orderer, the application should register a listener to be notified of the event when the transaction achieves finality, which is when the block containing the transaction gets added to the peer's ledger/blockchain. 
 
 Fabric committing peers provides an event stream to publish blocks to registered listeners. A Block gets published whenever the committing peer adds a validated block to the ledger. There are three ways to register a listener to get notified:
-register a "block listener" to get called for every block event. The listener will be passed a fully decoded Block object. See registerBlockEvent
-register a "transaction listener" to get called when the specific transaction by id is committed (discovered inside a published block). The listener will be passed the transaction id, transaction status and block number. See registerTxEvent
-register a "chaincode event listener" to get called when a specific chaincode event has arrived. The listener will be passed the ChaincodeEvent, block number, transaction id, and transaction status. 
 
-In this use case we are registering a transaction event. So when a transaction is completed/committed - an event will get triggered and the application will catch it and report it. 
+* register a `block listener` to get called for every block event. The listener will be passed a fully decoded Block object.
+
+* register a `transaction listener` to get called when the specific transaction by id is committed (discovered inside a published block). The listener will be passed the transaction id, transaction status and block number.
+
+* register a `chaincode event listener` to get called when a specific chaincode event has arrived. The listener is be passed the ChaincodeEvent, block number, transaction id, and transaction status. 
+
+In this pattern we are registering a transaction event. So when a transaction is completed/committed - an event will get triggered and the application will catch it and report it. 
 
 Audience level : Intermediate Developers
 
@@ -46,7 +49,7 @@ When you have completed this code pattern, you will understand how to:
 ## Featured technologies
 + [Hyperledger Fabric v1.4](https://hyperledger-fabric.readthedocs.io) is a platform for distributed ledger solutions, underpinned by a modular architecture that delivers high degrees of confidentiality, resiliency, flexibility, and scalability.
 + [Node.js](https://nodejs.org) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
-+ [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html)
++ [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html) provides a powerful API to interact with a Hyperledger Fabric blockchain. The 
 
 
 ### Prerequisites
@@ -65,7 +68,7 @@ Follow these steps to set up and run this code pattern. The steps are described 
 2. [Package the smart contract](#2-package-the-smart-contract)
 3. [Create IBM Cloud services](#3-create-ibm-cloud-services)
 4. [Build a network](#4-build-a-network)
-5. [Deploy Decentralized Energy Smart Contract on the network](#5-deploy-decentralizedenergy-smart-contract-on-the-network)
+5. [Deploy Auction Event Smart Contract on the network](#5-deploy-auctionevent-smart-contract-on-the-network)
 6. [Connect application to the network](#6-connect-application-to-the-network)
 7. [Run the application](#7-run-the-application)
 
@@ -296,10 +299,10 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 </p>
 <br>
 
-## 5. Deploy the Auction-Events Smart Contract on the network
+## 5. Deploy the Auction Event Smart Contract on the network
 
 
-* #### Install a smart contract (**note**: substitute the word `auction-energy` whereever  you see the word `fabcar` in the graphics)
+* #### Install a smart contract (**note**: substitute the word `auction-energy` where ever  you see the word `fabcar` in the graphics)
   - Click the <b>Smart contracts</b> tab to install the smart contract.
   - Click <b>Install smart contract</b> to upload the Decentralized smart contract package file, which you packaged earlier using the Visual Studio code extension.
   - Click on <b>Add file</b> and find your packaged smart contract.  
@@ -312,7 +315,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 </p>
 <br>
 
-* #### Instantiate smart contract (**note**: substitute the word `auction-energy` whereever  you see the word `fabcar` in the graphics)
+* #### Instantiate smart contract (**note**: substitute the word `auction-energy` where ever  you see the word `fabcar` in the graphics)
   - On the smart contracts tab, find the smart contract from the list installed on your peers and click <b>Instantiate</b> from the overflow menu on the right side of the row.
   - On the side panel that opens, select the channel, `mychannel` to instantiate the smart contract on. Click <b>Next</b>.
   - Select the organization members to be included in the policy, `org1msp`.  Click <b>Next</b>.
@@ -327,7 +330,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 ## 6. Connect application to the network
 
-* #### Connect with sdk through connection profile (**note**: substitute the word `auction` whereever  you see the word `fabcar` in the graphics)
+* #### Connect with sdk through connection profile (**note**: substitute the word `auction` where ever  you see the word `fabcar` in the graphics)
   - Under the Instantiated Smart Contract, click on `Connect with SDK` from the overflow menu on the right side of the row.
   - Choose from the dropdown for <b>MSP for connection</b>, `org1msp`.
   - Choose from <b>Certificate Authority</b> dropdown, `Org1 CA`.
@@ -357,8 +360,8 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 
 * #### Update application connection
-  - Copy the connection profile you downloaded into [server folder](web-app/server)
-  - Update the [config.json](web-app/server/config.json) file with:
+  - Copy the connection profile you downloaded into [server folder](application)
+  - Update the [config.json](application/config.json) file with:
   - The connection json file name you downloaded. 
   - The <b>enroll id</b> and <b>enroll secret</b> for your app admin, which we earlier provided as `app-admin` and `app-adminpw`.
   - The orgMSP ID, which we provided as `org1msp`.
@@ -386,12 +389,14 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 * #### Enroll admin
   - First, navigate to the `application` directory, and install the node dependencies.
+  
     ```bash
     cd application
     npm install
     ```
 
   - Run the `enrollAdmin.js` script
+  
     ```bash
     node enrollAdmin.js
     ```
@@ -399,28 +404,46 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 This will create a directory called `wallet` and insert the user Admin along with its certificate authority.
 
   - You should see the following in the terminal:
+  
     ```bash
     msg: Successfully enrolled admin user app-admin and imported it into the wallet
     ```
 
 
-  - Run the `invoke-emit.js` script to execute a few of the transactions on the smart contract
+  - Run the `application.js` script to execute a few of the transactions on the smart contract
+  
     ```bash
     node application.js
     ```
 
   - You should see the following in the terminal:
     ```bash
-    msg:  Submit AddResident transaction. info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "4ae2d2e3cad8cb52bc8f59518905919d693b4cc036405be0f25108ba623d67f5" 
-    
-    ...
+    Wallet path: /Users/laurabennett/2019/patterns/auction-events/application/wallet
+    Connected to Fabric gateway.
+    2019-02-21T23:31:50.829Z - error: [Client.js]: Channel not found for name mychannel
+    Got addressability to network
+    Got addressability to contract
 
+    Submit first transaction.
+    2019-02-21T23:31:53.009Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "58558ec805cfd9edf41bcb2c4e33bd804f697d01ade19c2c0f55b76b8ab5718b"
+    addSellerResponse: 
+    {"email":"auction@acme.org","companyName":"ACME","balance":100,"products":[],"type":"seller"}
+    2019-02-21T23:31:54.449Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "18705b3e7876f9012bb04fbf7b7fa8cab2090b84498a22a74c5e5e14ae4a3d16"
+    addMemberAResponse: 
+    {"email":"memberA@acme.org","firstName":"Amy","lastName":"Williams","balance":1000,"products":[],"type":"member"}
+    2019-02-21T23:31:55.703Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "9d56fee118003ac4586ed6bd4e93bffe4cc39aa153913922802643e6467b1f4d"
+    addMemberBResponse: 
+    {"email":"memberB@acme.org","firstName":"Billy","lastName":"Thompson","balance":1000,"products":[],"type":"member"}
+    2019-02-21T23:31:56.978Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "000ac6f7510cb6fe2934cc551caa1e50cdc27b1581ac6ac0f9e9bfa4a4c249f2"
+    addProductResponse: 
+    {"productId":"p1","description":"Sample Product","ownerId":"auction@acme.org"}
+    Disconnect from Fabric gateway.
+    done
     ```
 
 
- - Run the `invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  
-
- - You will see the following in the terminal:
+ - Run the `invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
+ 
 ```bash
 2019-02-21T06:05:42.247Z - error: [Client.js]: Channel not found for name mychannel
 Got addressability to channel
@@ -469,9 +492,7 @@ Successfully committed the change to the ledger by the peer
   ```
 
 * In the invoke-emit.js application, you will see the following code:
-It is important to note that in order for the `getClient` method to actually get the connection.profile content, you need to have line #4 occur before line #6.  If you don't, then the `client` constant will be `null`.  It is important you have the order correct to sun this code successfully.
-
-`const network = await gateway.getNetwork(channelName);` occur prior to the 
+It is important to note that in order for the `getClient` method to actually get the connection.profile content, you need to have line #4 occur before line #6.  If you don't, then the `client` constant will be `null`.  It is important you have the order correct to run the code successfully.
 
 ```bash
 1. // A gateway defines the peers used to access Fabric networks
