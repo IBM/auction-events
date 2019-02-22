@@ -1,0 +1,13 @@
+{
+    "channel_name": "mychannel",
+    "smart_contract_name": "auction",
+    "connection_file": "mychannel_auction_profile.json",
+    "appAdmin": "app-admin",
+    "appAdminSecret": "app-adminpw",
+    "orgMSPID": "org1msp",
+    "caName": "173.193.79.114:32615",
+    "peer": "grpcs://173.193.79.114:30324",
+    "orderer": "grpcs://173.193.79.114:32018",
+    "userName": "user1",
+    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+}

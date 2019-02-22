@@ -3,17 +3,29 @@
 
 // Bring key classes into scope, most importantly Fabric SDK network class
 const fs = require('fs');
-const yaml = require('js-yaml');
+//const yaml = require('js-yaml');
 const path = require('path');
 const { FileSystemWallet, Gateway } = require('fabric-network');
 
 
 // Create a new file system based wallet for managing identities.
-const walletPath = path.join(process.cwd(), '_idwallet');
+const walletPath = path.join(process.cwd(), 'wallet');
 const wallet = new FileSystemWallet(walletPath);
 console.log(`Wallet path: ${walletPath}`);
 
-const ccpPath = path.resolve(__dirname, 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), 'config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var appAdmin = config.appAdmin;
+var channelName = config.channel_name;
+var smartContractName = config.smart_contract_name;
+var appAdminSecret = config.appAdminSecret;
+var orgMSPID = config.orgMSPID;
+var caName = config.caName;
+
+const ccpPath = path.join(process.cwd(), connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -28,17 +40,17 @@ async function main(){
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: appAdmin , discovery: {enabled: true, asLocalhost:false }});
  
         console.log('Connected to Fabric gateway.');
 
         // Get addressability to network
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork(channelName);
 
         console.log('Got addressability to network');
 
         // Get addressability to  contract
-        const contract = await network.getContract('auction');
+        const contract = await network.getContract(smartContractName);
 
         console.log('Got addressability to contract');
 
@@ -78,6 +90,7 @@ async function main(){
         console.log(JSON.parse(addProductResponse.toString()));
 
         // can start emiting events for the auction transactions
+        /*
 
         var listingId = "l1";
         var reservePrice = "50";
@@ -115,6 +128,7 @@ async function main(){
         const memberBStateResponse = await contract.submitTransaction('GetState', memberBEmail);
         console.log('memberBStateResponse: ')
         console.log(JSON.parse(memberBStateResponse.toString()));
+    */
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);

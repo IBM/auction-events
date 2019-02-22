@@ -9,40 +9,79 @@
  * Chaincode Invoke
  */
 
-var Fabric_Client = require('fabric-client');
-var path = require('path');
 var util = require('util');
-var os = require('os');
-
+const fs = require('fs');
+//const yaml = require('js-yaml');
+const path = require('path');
+const { FileSystemWallet, Gateway } = require('fabric-network');
+var Fabric_Client = require('fabric-client');
 var fabric_client = new Fabric_Client();
+const configPath = path.join(process.cwd(), 'config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var appAdmin = config.appAdmin;
+var channelName = config.channel_name;
+var smartContractName = config.smart_contract_name;
+var appAdminSecret = config.appAdminSecret;
+var orgMSPID = config.orgMSPID;
 
-// setup the fabric network
-var channel = fabric_client.newChannel('mychannel');
-var peer = fabric_client.newPeer('grpc://localhost:17051');
-channel.addPeer(peer);
-var order = fabric_client.newOrderer('grpc://localhost:17050')
-channel.addOrderer(order);
+const ccpPath = path.join(process.cwd(), connection_file);
+const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+const ccp = JSON.parse(ccpJSON);
 
-//
-var member_user = null;
-var store_path = path.join(__dirname, '_idwallet', 'User1@org1.example.com');
-console.log('Store path:'+store_path);
-var tx_id = null;
+const gateway = new Gateway();
+
+async function main() {
+
+
+// Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), 'wallet');
+    const wallet = new FileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+    var member_user = null;
+
+    // A gateway defines the peers used to access Fabric networks
+    
+    await gateway.connect(ccp, { wallet, identity: appAdmin , discovery: {enabled: true, asLocalhost:false }});
+    console.log('Connected to Fabric gateway.');
+
+    const network = await gateway.getNetwork(channelName);
+    // Get addressability to network
+
+    const client = gateway.getClient();
+    
+    const channel = client.getChannel('mychannel');
+    console.log('Got addressability to channel');
+    
+    const channel_event_hub = channel.getChannelEventHub('173.193.79.114:30324');
+
+	var user = await client.getUserContext('app-admin', true);
+
+    // Get addressability to  contract
+    const contract = await network.getContract(smartContractName);
+    console.log('Got addressability to contract');
+
+    var tx_id = client.newTransactionID(true);
+    console.log("Assigning transaction_id: ", tx_id._transaction_id);
+
+
 
 // create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting
-Fabric_Client.newDefaultKeyValueStore({ path: store_path
-}).then((state_store) => {
+Fabric_Client.newDefaultKeyValueStore({ path: walletPath
+}).then((wallet) => {
 	// assign the store to the fabric client
-	fabric_client.setStateStore(state_store);
-	var crypto_suite = Fabric_Client.newCryptoSuite();
+	/*client.setStateStore(wallet);
+	var crypto_suite = client.getCryptoSuite();
 	// use the same location for the state store (where the users' certificate are kept)
 	// and the crypto store (where the users' keys are kept)
-	var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
+	var crypto_store = Fabric_Client.newCryptoKeyStore({path: walletPath});
 	crypto_suite.setCryptoKeyStore(crypto_store);
-	fabric_client.setCryptoSuite(crypto_suite);
+	client.setCryptoSuite(crypto_suite);*/
 
 	// get the enrolled user from persistence, this user will sign all requests
-	return fabric_client.getUserContext('User1@org1.example.com', true);
+	//return client.getUserContext('app-admin', true);
+	return user
 }).then((user_from_store) => {
 	if (user_from_store && user_from_store.isEnrolled()) {
 		console.log('Successfully loaded user1 from persistence');
@@ -52,15 +91,19 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 	}
 
 	// get a transaction id object based on the current user assigned to fabric client
-	tx_id = fabric_client.newTransactionID();
-	console.log("Assigning transaction_id: ", tx_id._transaction_id);
+	tx_id = client.newTransactionID(true);
+	console.log("Assigning transaction_id: ", tx_id._transaction_id); 
+
+    var listingId = "l1";
+    var reservePrice = "50";
+    var productId = "p1";
 	
 	// must send the proposal to endorsing peers
 	var request = {
 		//targets: let default to the peer assigned to the client
 		chaincodeId: 'auction',
-		fcn: 'Offer',
-		args: ["50", "l1", "memberA@acme.org"],
+		fcn: 'StartBidding',
+		args: ['l1', '50', 'p1'],
 		chainId: 'mychannel',
 		txId: tx_id
 	};
@@ -99,8 +142,8 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 		promises.push(sendPromise); //we want the send transaction first, so that we know where to check status
 
 		// get an eventhub once the fabric client has a user assigned. The user
-		// is required bacause the event registration must be signed
-		let event_hub = channel.newChannelEventHub(peer);
+		// is required because the event registration must be signed
+		let event_hub = channel.newChannelEventHub('173.193.79.114:30324');
 		
 		event_hub.connect(true);
 		var regid = event_hub.registerChaincodeEvent('auction', 'TradeEvent', function(event) {
@@ -169,3 +212,8 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 }).catch((err) => {
 	console.error('Failed to invoke successfully :: ' + err);
 });
+
+
+}
+
+main();
