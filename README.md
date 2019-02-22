@@ -93,7 +93,7 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
 </p>
 
 
-* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note: You will see `auction@0.0.1` instead of 
+* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note: You will see `auction@0.0.1` instead of fabcar@1.0.0.
 
 <p align="center">
   <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
