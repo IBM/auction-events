@@ -443,6 +443,8 @@ This will create a directory called `wallet` and insert the user Admin along wit
 
 
  - Run the `invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
+ - 
+**Things to Note** The text `assigning transaction id` is where a listener is attached to the transaction.  Then when the event occurs, you see the response: `Successfully sent Proposal and received ProsposalResponse: Status - 200..`
  
 ```bash
 2019-02-21T06:05:42.247Z - error: [Client.js]: Channel not found for name mychannel
@@ -450,7 +452,7 @@ Got addressability to channel
 Got addressability to contract
 Assigning transaction_id:  7be0a0095ac2816454412dc2fe10b539ba9b70f32b965fe0469dc36a036945cd
 Successfully loaded user1 from persistence
-Assigning transaction_id:  462c1c6283ed5cc83a64b44f94d989d36c5b0df594b63cd8ffa6332b78375844
+**Assigning transaction_id:  462c1c6283ed5cc83a64b44f94d989d36c5b0df594b63cd8ffa6332b78375844**
 Transaction proposal was good
 Successfully sent Proposal and received ProposalResponse: Status - 200, message - ""
 event
