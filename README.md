@@ -32,14 +32,17 @@ When you have completed this code pattern, you will understand how to:
 ***UPDATE***
 
 <p align="center">
-  <img src="docs/doc-images/arch-flow.png">
+  <img src="docs/doc-images/archdiagram.png">
 </p>
 
-1. The developer uses the IBM Blockchain Platform Extension for VS Code to package the Decentralized Energy smart contract.
-2. Launch the IBM Blockchain Platform 2.0 and Kubernetes Services on the IBM Cloud.
-3. Install chaincode on the peer node.
-4. Instantiate the chaincode on the peer node.
-5. Execute the decentralized energy smart contract transactions from a node.js application.
+1. The developer develops a smart contract using Node.js
+2. Use the IBM Blockchain Platform Extension for VS Code to package the Decentralized Energy smart contract.
+3. Setup and launch the IBM Blockchain Platform 2.0 service
+4. The IBM Blockchain Platform 2.0 enables the creation of a network onto a IBM Kubernetes Service, enabling installation and instantiation of the Auction smart contract on the network
+5.  The Node.js application uses the Fabic SDK to add a listener to specific transactions and subsequently interact with the deployed network on IBM Blockchain Platform 2.0 and issues transactions.
+6.  Events are emitted as transactions are triggered and blocks are committed to the ledger. The events are sent back to the Node.js application.
+
+
 
 # Included components
 *   [IBM Blockchain Platform 2.0](https://console.bluemix.net/docs/services/blockchain/howto/ibp-v2-deploy-iks.html#ibp-v2-deploy-iks) gives you total control of your blockchain network with a user interface that can simplify and accelerate your journey to deploy and manage blockchain components on the IBM Cloud Kubernetes Service.
@@ -93,7 +96,7 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
 </p>
 
 
-* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note: You will see `auction@0.0.1` instead of fabcar@1.0.0.
+* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note: You will see `auction@0.0.1` instead of globalfinancing@1.0.0.
 
 <p align="center">
   <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
