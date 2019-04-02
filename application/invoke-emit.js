@@ -56,7 +56,7 @@ async function main() {
     const channel = client.getChannel('mychannel');
     console.log('Got addressability to channel');
     
-    //const channel_event_hub = channel.getChannelEventHub('173.193.79.114:30324');
+    //const channel_event_hub = channel.getChannelEventHub(peerAddr);
     const channel_event_hub = channel.getChannelEventHub(peerAddr);
 
 	var user = await client.getUserContext('app-admin', true);
