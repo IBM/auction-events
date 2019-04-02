@@ -5,9 +5,9 @@
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "org1msp",
-    "caName": "173.193.79.114:32615",
-    "peer": "grpcs://173.193.79.114:30324",
-    "orderer": "grpcs://173.193.79.114:32018",
+    "caName": "173.193.79.114:31684",
+    "peer": "173.193.79.114:32416",
+    "orderer": "173.193.79.114:31100",
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }

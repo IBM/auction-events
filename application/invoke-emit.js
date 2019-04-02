@@ -22,9 +22,11 @@ const config = JSON.parse(configJSON);
 var connection_file = config.connection_file;
 var appAdmin = config.appAdmin;
 var channelName = config.channel_name;
+var peerAddr = config.peer;
 var smartContractName = config.smart_contract_name;
 var appAdminSecret = config.appAdminSecret;
 var orgMSPID = config.orgMSPID;
+
 
 const ccpPath = path.join(process.cwd(), connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -46,15 +48,16 @@ async function main() {
     await gateway.connect(ccp, { wallet, identity: appAdmin , discovery: {enabled: true, asLocalhost:false }});
     console.log('Connected to Fabric gateway.');
 
-    const network = await gateway.getNetwork(channelName);
     // Get addressability to network
+    const network = await gateway.getNetwork(channelName);
 
     const client = gateway.getClient();
     
     const channel = client.getChannel('mychannel');
     console.log('Got addressability to channel');
     
-    const channel_event_hub = channel.getChannelEventHub('173.193.79.114:30324');
+    //const channel_event_hub = channel.getChannelEventHub('173.193.79.114:30324');
+    const channel_event_hub = channel.getChannelEventHub(peerAddr);
 
 	var user = await client.getUserContext('app-admin', true);
 
@@ -143,7 +146,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: walletPath
 
 		// get an eventhub once the fabric client has a user assigned. The user
 		// is required because the event registration must be signed
-		let event_hub = channel.newChannelEventHub('173.193.79.114:30324');
+		let event_hub = channel.newChannelEventHub(peerAddr);
 		
 		event_hub.connect(true);
 		var regid = event_hub.registerChaincodeEvent('auction', 'TradeEvent', function(event) {
