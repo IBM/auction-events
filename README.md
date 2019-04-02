@@ -96,7 +96,8 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
 </p>
 
 
-* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note: You will see `auction@0.0.1` instead of globalfinancing@1.0.0.
+* Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom. **Note** You will see `auction@0.0.1` instead of globalfinancing@1.0.0.
+
 
 <p align="center">
   <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
@@ -195,7 +196,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
   - On the next screen, select `Org1 CA` as your <b>Certificate Authority</b>. Then, give the <b>Enroll ID</b> and <b>Enroll secret</b> for the peer identity that you created for your peer, `peer1`, and `peer1pw`. Then, select the <b>Administrator Certificate (from MSP)</b>, `Org1 MSP`, from the drop-down list and click <b>Next</b>.
   - Give the <b>TLS Enroll ID</b>, `admin`, and <b>TLS Enroll secret</b>, `adminpw`, the same values are the Enroll ID and Enroll secret that you gave when creating the CA.  Leave the <b>TLS CSR hostname</b> blank.
   - The last side panel will ask you to <b>Associate an identity</b> and make it the admin of your peer. Select your peer admin identity `Org1 Admin`.
-  - Review the summary and click <b>Submit</b>.
+  - Review the summary and click <b>Add Peer</b>.
 
 <br>
 <p align="center">
@@ -249,7 +250,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
   - On the next screen, select `Orderer CA` as your <b>Certificate Authority</b>. Then, give the <b>Enroll ID</b> and <b>Enroll secret</b> for the peer identity that you created for your orderer, `orderer1`, and `orderer1pw`. Then, select the <b>Administrator Certificate (from MSP)</b>, `Orderer MSP`, from the drop-down list and click <b>Next</b>.
   - Give the <b>TLS Enroll ID</b>, `admin`, and <b>TLS Enroll secret</b>, `adminpw`, the same values are the Enroll ID and Enroll secret that you gave when creating the CA.  Leave the <b>TLS CSR hostname</b> blank.
   - The last side panel will ask to <b>Associate an identity</b> and make it the admin of your peer. Select your peer admin identity `Orderer Admin`.
-  - Review the summary and click <b>Submit</b>.
+  - Review the summary and click <b>Add Orderer</b>.
 
 <br>
 <p align="center">
@@ -305,7 +306,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 ## 5. Deploy the Auction Event Smart Contract on the network
 
 
-* #### Install a smart contract (**note**: substitute the word `auction-energy` where ever  you see the word `fabcar` in the graphics)
+* #### Install a smart contract (**note**: substitute the word `auction` where ever  you see the word `fabcar` in the graphics)
   - Click the <b>Smart contracts</b> tab to install the smart contract.
   - Click <b>Install smart contract</b> to upload the Decentralized smart contract package file, which you packaged earlier using the Visual Studio code extension.
   - Click on <b>Add file</b> and find your packaged smart contract.  
@@ -318,7 +319,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 </p>
 <br>
 
-* #### Instantiate smart contract (**note**: substitute the word `auction-energy` where ever  you see the word `fabcar` in the graphics)
+* #### Instantiate smart contract (**note**: substitute the word `auction` where ever  you see the word `fabcar` in the graphics)
   - On the smart contracts tab, find the smart contract from the list installed on your peers and click <b>Instantiate</b> from the overflow menu on the right side of the row.
   - On the side panel that opens, select the channel, `mychannel` to instantiate the smart contract on. Click <b>Next</b>.
   - Select the organization members to be included in the policy, `org1msp`.  Click <b>Next</b>.
@@ -347,7 +348,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 <br>
 
 * #### Create an application admin
-  - Go to the <b>Nodes</b> tab on the left bar, and under <b>Certif Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
+  - Go to the <b>Nodes</b> tab on the left bar, and under <b>Certificate Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
   - Click on <b>Register user</b>.
   - Give an <b>Enroll ID</b> and <b>Enroll Secret</b> to administer your application users, `app-admin` and `app-adminpw`.
   - Choose `client` as <b>Type</b> and any organization for affiliation.  We can pick `org1` to be consistent.
@@ -363,12 +364,13 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 
 * #### Update application connection
-  - Copy the connection profile you downloaded into [server folder](application)
+  - Copy the connection profile you downloaded into [application folder](application)
   - Update the [config.json](application/config.json) file with:
   - The connection json file name you downloaded. 
   - The <b>enroll id</b> and <b>enroll secret</b> for your app admin, which we earlier provided as `app-admin` and `app-adminpw`.
-  - The orgMSP ID, which we provided as `org1msp`.
-  - The caName, which can be found in your connection json file under "organization" -> "org1msp" -> certificateAuthorities". This would be like an IP address and a port.
+  - The <b>orgMSP ID</b>, which we provided as `org1msp`.
+  - The <b>caName</b>, which can be found in your connection json file under "organization" -> "org1msp" -> certificateAuthorities". This would be like an IP address and a port.
+  - The <b>peer</b>, , which can be found in your connection json file under "organization" -> "org1msp" -> peers". This would be like an IP address and a port.
   - The username you would like to register.
   - Update gateway discovery to `{ enabled: true, asLocalhost: false }` to connect to IBP.
 
@@ -376,13 +378,15 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 ```bash
  {
-    "connection_file": "mychannel_auction_profile.json",
-    "channel_name": "mychannel",
+   "channel_name": "mychannel",
     "smart_contract_name": "auction",
+    "connection_file": "mychannel_auction_profile.json",
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "org1msp",
     "caName": "173.193.79.114:32615",
+    "peer": "grpcs://173.193.79.114:30324",
+    "orderer": "grpcs://173.193.79.114:32018",
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
  }
@@ -445,7 +449,7 @@ This will create a directory called `wallet` and insert the user Admin along wit
     ```
 
 
- - Run the `invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
+ - In a second termine window, run `node invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
  - 
 **Things to Note** The text `assigning transaction id` is where a listener is attached to the transaction.  Then when the event occurs, you see the response: `Successfully sent Proposal and received ProsposalResponse: Status - 200..`
  
