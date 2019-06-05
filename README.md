@@ -46,13 +46,13 @@ When you have completed this code pattern, you will understand how to:
 
 # Included components
 *   [IBM Blockchain Platform 2.0](https://console.bluemix.net/docs/services/blockchain/howto/ibp-v2-deploy-iks.html#ibp-v2-deploy-iks) gives you total control of your blockchain network with a user interface that can simplify and accelerate your journey to deploy and manage blockchain components on the IBM Cloud Kubernetes Service.
-*   [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service) gcreates a cluster of compute hosts and deploys highly available containers. A Kubernetes cluster lets you securely manage the resources that you need to quickly deploy, update, and scale applications.
+*   [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service) creates a cluster of compute hosts and deploys highly available containers. A Kubernetes cluster lets you securely manage the resources that you need to quickly deploy, update, and scale applications.
 * [IBM Blockchain Platform Extension for VS Code](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) is designed to assist users in developing, testing, and deploying smart contracts -- including connecting to Hyperledger Fabric environments. 
 
 ## Featured technologies
 + [Hyperledger Fabric v1.4](https://hyperledger-fabric.readthedocs.io) is a platform for distributed ledger solutions, underpinned by a modular architecture that delivers high degrees of confidentiality, resiliency, flexibility, and scalability.
 + [Node.js](https://nodejs.org) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
-+ [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html) provides a powerful API to interact with a Hyperledger Fabric blockchain. The 
++ [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html) provides a powerful API to interact with a Hyperledger Fabric blockchain. 
 
 
 ### Prerequisites
@@ -78,7 +78,7 @@ Follow these steps to set up and run this code pattern. The steps are described 
 
 ## 1. Clone the repo
 
-Clone this repository in a folder your choice:
+Clone this repository in a folder of your choice:
 
 ```
 git clone https://github.com/IBM/auction-events.git
