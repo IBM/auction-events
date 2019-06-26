@@ -308,7 +308,7 @@ We will build out the network as provided by the IBM Blockchain Platform [docume
 
 * #### Install a smart contract (**note**: substitute the word `auction` where ever  you see the word `fabcar` in the graphics)
   - Click the <b>Smart contracts</b> tab to install the smart contract.
-  - Click <b>Install smart contract</b> to upload the Decentralized smart contract package file, which you packaged earlier using the Visual Studio code extension.
+  - Click <b>Install smart contract</b> to upload the Auction smart contract package file, which you packaged earlier using the Visual Studio code extension.
   - Click on <b>Add file</b> and find your packaged smart contract.  
   - Once the contract is uploaded, click <b>Install</b>.
 
