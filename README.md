@@ -417,39 +417,151 @@ This will create a directory called `wallet` and insert the user Admin along wit
     ```
 
 
-  - Run the `application.js` script to execute a few of the transactions on the smart contract
+  - In the newest version of the Hyperledger Fabric Node SDK (1.4 release) there are 
+  three main event types that can be subscribed to
+    1. <b>Contract events</b> - these have to be emitted from the chaincode by calling the
+    [stub.setEvent(name,payload) method](https://fabric-shim.github.io/master/fabric-shim.ChaincodeStub.html#setEvent__anchor). An example can be seen 
+    in the auction chaincode on [line 141 of contract/lib/auction.js](https://github.com/IBM/auction-events/blob/master/contract/lib/auction.js#L141). These types of 
+    events are great, since you can customize exactly what data you want to send 
+    to the client application. Note that these events will only be triggered once 
+    a certain function within your chaincode is called. 
+    2. <b>Transaction (Commit) events</b> - these are automatically emitted 
+    after a transaction is committed to the ledger.
+    3. <b> Block events </b> - these are emitted automatically when a block is committed. 
+    Note that there can be mutliple transactions in a block, so you may get multiple
+    transaction events for one block event.
   
-    ```bash
-    node application.js
-    ```
+  - To illustrate each of these three main event types, we will have a separate script
+  for each, that will show each of the events in action. First, let's check out the 
+  `contractEvents.js` file. This file uses the `addContractListener` function to 
+  look for any `TradeEvent` events that may be published from our chaincode. You can 
+  see in our `contract` directory, that our `StartBidding`, `Offer`, and `CloseBidding` 
+  functions all emit an event my calling 
+  
+  `await ctx.stub.setEvent('TradeEvent', Buffer.from(JSON.stringify(tradeEvent)));`
 
-  - You should see the following in the terminal:
-    ```bash
-    Wallet path: /Users/laurabennett/2019/patterns/auction-events/application/wallet
-    Connected to Fabric gateway.
-    2019-02-21T23:31:50.829Z - error: [Client.js]: Channel not found for name mychannel
-    Got addressability to network
-    Got addressability to contract
+  Then, our callback function in our `contractEvents.js` file will fire once it has 
+  detected that the `TradeEvent` is sent. Go ahead and run `contractEvents.js` by 
+  typing in the following command in terminal
 
-    Submit first transaction.
-    2019-02-21T23:31:53.009Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "58558ec805cfd9edf41bcb2c4e33bd804f697d01ade19c2c0f55b76b8ab5718b"
-    addSellerResponse: 
-    {"email":"auction@acme.org","companyName":"ACME","balance":100,"products":[],"type":"seller"}
-    2019-02-21T23:31:54.449Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "18705b3e7876f9012bb04fbf7b7fa8cab2090b84498a22a74c5e5e14ae4a3d16"
-    addMemberAResponse: 
-    {"email":"memberA@acme.org","firstName":"Amy","lastName":"Williams","balance":1000,"products":[],"type":"member"}
-    2019-02-21T23:31:55.703Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "9d56fee118003ac4586ed6bd4e93bffe4cc39aa153913922802643e6467b1f4d"
-    addMemberBResponse: 
-    {"email":"memberB@acme.org","firstName":"Billy","lastName":"Thompson","balance":1000,"products":[],"type":"member"}
-    2019-02-21T23:31:56.978Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "000ac6f7510cb6fe2934cc551caa1e50cdc27b1581ac6ac0f9e9bfa4a4c249f2"
-    addProductResponse: 
-    {"productId":"p1","description":"Sample Product","ownerId":"auction@acme.org"}
-    Disconnect from Fabric gateway.
-    done
-    ```
+  ```javascript
+    application$ node contractEvents.js 
+    Wallet path: /Users/Horea.Porutiu@ibm.com/Workdir/testDir/auction-events/application/wallet
+    gateway connect
+    ************************ Start Trade Event *******************************************************
+    type: Start Auction
+    ownerId: auction@acme.org
+    id: l1
+    description: Sample Product
+    status: {"code":1,"text":"FOR_SALE"}
+    amount: 50
+    buyerId: auction@acme.org
+    Block Number: 124 Transaction ID: 6be255d6c2ab968ab9f0bd4bbc3477f51f1e02512d11e86fc509f2f6f0e51a7e Status: VALID
+    ************************ End Trade Event ************************************
+    closebiddingResponse: 
+    {"listingId":"l1","offers":[{"bidPrice":100,"memberId":"memberB@acme.org"},{"bidPrice":50,"memberId":"memberA@acme.org"}],"productId":"p1","reservePrice":50,"state":"{\"code\":3,\"text\":\"SOLD\"}"}
+    Transaction to close the bidding has been submitted
+  ```
 
+  This above output parses the trade event - it shows us the type of the event, the owner, the id, 
+  the description of the product the status, etc. This is all things we have built and emitted within 
+  our chaincode. Great. Now that we understand how contract events work, let's move onto the block 
+  event listener. 
 
- - In a second termine window, run `node invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
+  - Block events are different than contract events since you have less control of what exactly 
+  is being output. Go ahead and check out `blockEvents.js`. Note that there may be multiple 
+  transactions within one block, and you can edit how many transactions are in your block by 
+  editing the block batch size for a channel. You can read more details about this 
+  [here](https://hyperledger-fabric.readthedocs.io/en/release-1.4/config_update.html). 
+  The main components of the block are the block header, the block data, and the block
+  metadata. 
+    - The <b>block header</b> contains the block number, (starting at 0 from the genesis block)
+    and increased by 1 for every new block appended to the blockchain. It also has 
+    the current block hash (the hash of all transactions in the current block), and 
+    the previous block hash.
+    - The <b>block data</b> contains a list of the transactions in order. 
+    - The <b>block metadata</b> contains the time when the block was written,
+    the certificate, public key and signature of the block writer.
+
+  - Go ahead and run the `blockEvents.js` script by typing in the following 
+  commands in the terminal. For each `contract.submitTransaction` we submit,
+  we will have a new block added to the ledger.
+  Notice the output will be divided by header, 
+  data, and metadata. You can then parse those respective parts of the output 
+  to learn more about each specific part of the block.
+
+  ```javascript
+  application$ node blockEvents.js 
+  Wallet path: /Users/Horea.Porutiu@ibm.com/Workdir/testDir/auction-events/application/wallet
+  gateway connect
+  *************** start block header **********************
+  { number: '396',
+    previous_hash: 'af979a1632e1ba69a75256dce4bafad40e93ebec6ee17de5b2923bbeb5abfec8',
+    data_hash: '4db396d91151c432e1f17f32254565bc2445975d6d8c9000ff74a5c2a845dd26' }
+  *************** end block header **********************
+  *************** start block data **********************
+  { signature: <Buffer 30 44 02 20 14 31 37 8d be 63 99 69 cc b7 35 30 b7 71 d8 0f 38 98 70 c6 7a cb fa a6 ed c3 a8 eb 28 c1 90 9f 02 20 05 4a 5d 66 61 4a 4f e9 42 37 11 b1 ... >,
+    payload: 
+    { header: 
+        { channel_header: 
+          { type: 3,
+            version: 1,
+            timestamp: '2019-08-30T00:10:45.075Z',
+            channel_id: 'mychannel',
+            tx_id: 'cb12f4a9209c0c35d20213c4d2c517c2b199761cb29902a11bc955eba291acc6',
+            epoch: '0',
+            extension: <Buffer 12 09 12 07 61 75 63 74 69 6f 6e>,
+            typeString: 'ENDORSER_TRANSACTION' },
+          signature_header: 
+          { creator: 
+              { Mspid: 'org1msp',
+                IdBytes: '-----BEGIN CERTIFICATE-----\nMIICaTCCAhCgAwIBAgIUC2iFJ+dVTbE8QSVoqjjno3mT9sowCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTE5MDgyODE4MjQwMFoXDTIwMDgyNzE4MjkwMFowJjEPMA0G\nA1UECxMGY2xpZW50MRMwEQYDVQQDEwphcHAtYWRtaW4yMFkwEwYHKoZIzj0CAQYI\nKoZIzj0DAQcDQgAEMFDxKrg+VEO3mK5tfJKf7oULfagOMcAmX4T4NUmLI/ojsnTe\naTJUeJQQ3Vyp1L7pV3hZGvY9HlZUt6uVoLjju6OB2TCB1jAOBgNVHQ8BAf8EBAMC\nB4AwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU/GYKt2Q4Bk7aKon90K66rlgwWlAw\nHwYDVR0jBBgwFoAUUii9qu9Xs+cjOsm1MaM+xK1UCL4wdgYIKgMEBQYHCAEEansi\nYXR0cnMiOnsiaGYuQWZmaWxpYXRpb24iOiIiLCJoZi5FbnJvbGxtZW50SUQiOiJh\ncHAtYWRtaW4yIiwiaGYuUmVnaXN0cmFyLlJvbGVzIjoiKiIsImhmLlR5cGUiOiJj\nbGllbnQifX0wCgYIKoZIzj0EAwIDRwAwRAIgQEaWB8YVEfO67OAWLypnQX//0nrg\nOGtLqVv/HRkg2TsCIC4cn04cmTjLWg/GVGuXSLlaZV1SZFlGvd9lNDN2ytea\n-----END CERTIFICATE-----\n' },
+            nonce: <Buffer fa 18 68 a7 a9 8b 74 10 8e 41 75 22 0d 74 8a 60 86 15 1f e3 13 59 d3 06> } },
+      data: 
+        { actions: 
+          [ { header: 
+                { creator: [Object],
+                  nonce: <Buffer fa 18 68 a7 a9 8b 74 10 8e 41 75 22 0d 74 8a 60 86 15 1f e3 13 59 d3 06> },
+              payload: { chaincode_proposal_payload: [Object], action: [Object] } } ] } } }
+  *************** end block data **********************
+  *************** start block metadata ****************
+  { metadata: 
+    [ { value: '\n\u0000\u0012\n\n\b\n\u0001\u0001\u0010\u0002\u0018�\u0003',
+        signatures: 
+          [ { signature_header: 
+              { creator: [Object],
+                nonce: <Buffer 0b f0 46 f5 17 1e 74 f3 c4 34 75 aa b0 85 80 f6 4e 4c d0 f5 ba a0 26 b4> },
+              signature: <Buffer 30 45 02 21 00 b7 12 42 a3 43 21 8b a3 ea e1 56 af e4 63 2c 7e cc c6 c3 bf b7 e5 01 73 69 27 ce 4b 13 63 d3 5b 02 20 1d a1 e8 38 f6 fb 48 bb 3c 9a 01 ... > } ] },
+      { value: { index: '0' }, signatures: [] },
+      [ 0 ] ] }
+  *************** end block metadata ****************
+  ```
+  To learn more about the specifics of what is included inside of a block, read this 
+  [page](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html#blocks).
+
+  - Lastly, let's go ahead and listen for transaction events. This is even more 
+  granular than block events, since multiple transactions can comprise a block.
+  We will use the `transaction.addCommitListener` to listen to transactions. Go 
+  ahead and look at the `transactionEvents.js` file. What we are doing, is that we are 
+  adding a committ listener, such that when we submit a transaction, and it is 
+  committed, we will get the transactionId, status, and blockheight back. Go 
+  ahead and run `transactionEvents.js` file, and you should see the following 
+  output in your terminal: 
+
+  ```javascript
+  application$ node transactionEvents.js 
+  Wallet path: /Users/Horea.Porutiu@ibm.com/Workdir/testDir/auction-events/application/wallet
+  gateway connect
+  transaction committed
+  'ef7f833d6039e41c5054d0bba0d327cfc14bfd7be836a6c5e65547320880d1af'
+  'VALID'
+  405
+  transaction committed end
+  Transaction to add seller has been submitted
+  application$ 
+  ```
+
+ - In a second terminal window, run `node invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
  - 
 **Things to Note** The text `assigning transaction id` is where a listener is attached to the transaction.  Then when the event occurs, you see the response: `Successfully sent Proposal and received ProsposalResponse: Status - 200..`
  
