@@ -431,6 +431,8 @@ This will create a directory called `wallet` and insert the user Admin along wit
     Note that there can be mutliple transactions in a block, so you may get multiple
     transaction events for one block event.
   
+## 8. Emit Contract Events
+
   - To illustrate each of these three main event types, we will have a separate script
   for each, that will show each of the events in action. First, let's check out the 
   `contractEvents.js` file. This file uses the `addContractListener` function to 
@@ -465,6 +467,8 @@ This will create a directory called `wallet` and insert the user Admin along wit
   the description of the product the status, etc. This is all things we have built and emitted within 
   our chaincode. Great. Now that we understand how contract events work, let's move onto the block 
   event listener. 
+
+## 9. Emit Block Events
 
   - Block events are different than contract events since you have less control of what exactly 
   is being output. Go ahead and check out `blockEvents.js`. Note that there may be multiple 
@@ -537,6 +541,7 @@ This will create a directory called `wallet` and insert the user Admin along wit
   To learn more about the specifics of what is included inside of a block, read this 
   [page](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html#blocks).
 
+## 10. Emit Transaction Events
   - Lastly, let's go ahead and listen for transaction events. This is even more 
   granular than block events, since multiple transactions can comprise a block.
   We will use the `transaction.addCommitListener` to listen to transactions. Go 
