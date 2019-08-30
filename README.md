@@ -39,7 +39,7 @@ When you have completed this code pattern, you will understand how to:
 2. Use the IBM Blockchain Platform Extension for VS Code to package the Decentralized Energy smart contract.
 3. Setup and launch the IBM Blockchain Platform 2.0 service
 4. The IBM Blockchain Platform 2.0 enables the creation of a network onto a IBM Kubernetes Service, enabling installation and instantiation of the Auction smart contract on the network
-5.  The Node.js application uses the Fabic SDK to add a listener to specific transactions and subsequently interact with the deployed network on IBM Blockchain Platform 2.0 and issues transactions.
+5.  The Node.js application uses the Fabric SDK to add a listener to specific transactions and subsequently interact with the deployed network on IBM Blockchain Platform 2.0 and issues transactions.
 6.  Events are emitted as transactions are triggered and blocks are committed to the ledger. The events are sent back to the Node.js application.
 
 
