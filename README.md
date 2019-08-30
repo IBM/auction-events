@@ -565,33 +565,6 @@ This will create a directory called `wallet` and insert the user Admin along wit
   ```
 
  - In a second terminal window, run `node invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
- - 
-**Things to Note** The text `assigning transaction id` is where a listener is attached to the transaction.  Then when the event occurs, you see the response: `Successfully sent Proposal and received ProsposalResponse: Status - 200..`
- 
-```bash
-2019-02-21T06:05:42.247Z - error: [Client.js]: Channel not found for name mychannel
-Got addressability to channel
-Got addressability to contract
-Assigning transaction_id:  7be0a0095ac2816454412dc2fe10b539ba9b70f32b965fe0469dc36a036945cd
-Successfully loaded user1 from persistence
-**Assigning transaction_id:  462c1c6283ed5cc83a64b44f94d989d36c5b0df594b63cd8ffa6332b78375844**
-Transaction proposal was good
-Successfully sent Proposal and received ProposalResponse: Status - 200, message - ""
-event
-{ chaincode_id: 'auction',
-  tx_id: 'eb6b1d46e08e5f253236676da9e7c4ff694c741964ae72750516f746cf0d592e',
-  event_name: 'TradeEvent',
-  payload: <Buffer 7b 22 74 79 70 65 22 3a 22 53 74 61 72 74 20 41 75 63 74 69 6f 6e 22 2c 22 6f 77 6e 65 72 49 64 22 3a 22 61 75 63 74 69 6f 6e 40 61 63 6d 65 2e 6f 72 ... > }
-Custom event received, payload: "{\"type\":\"Start Auction\",\"ownerId\":\"auction@acme.org\",\"id\":\"l1\",\"description\":\"Sample Product\",\"status\":\"{\\\"code\\\":1,\\\"text\\\":\\\"FOR_SALE\\\"}\",\"amount\":50,\"buyerId\":\"auction@acme.org\"}"
-
-The transaction has been committed on peer 173.193.79.114:30324
-Send transaction promise and event listener promise have completed
-Successfully sent transaction to the orderer.
-Successfully committed the change to the ledger by the peer
-```
-
-
-
 
 ## Troubleshooting
 
