@@ -436,11 +436,8 @@ This will create a directory called `wallet` and insert the user Admin along wit
   `contractEvents.js` file. This file uses the `addContractListener` function to 
   look for any `TradeEvent` events that may be published from our chaincode. You can 
   see in our `contract` directory, that our `StartBidding`, `Offer`, and `CloseBidding` 
-  functions all emit an event my calling 
-  
-  `await ctx.stub.setEvent('TradeEvent', Buffer.from(JSON.stringify(tradeEvent)));`
-
-  Then, our callback function in our `contractEvents.js` file will fire once it has 
+  functions all emit an event my calling `await ctx.stub.setEvent('TradeEvent', Buffer.from(JSON.stringify(tradeEvent)));` Then, our callback function in our `contractEvents.js` 
+  file will fire once it has 
   detected that the `TradeEvent` is sent. Go ahead and run `contractEvents.js` by 
   typing in the following command in terminal
 
@@ -456,7 +453,8 @@ This will create a directory called `wallet` and insert the user Admin along wit
     status: {"code":1,"text":"FOR_SALE"}
     amount: 50
     buyerId: auction@acme.org
-    Block Number: 124 Transaction ID: 6be255d6c2ab968ab9f0bd4bbc3477f51f1e02512d11e86fc509f2f6f0e51a7e Status: VALID
+    Block Number: 124 Transaction ID: 
+    6be255d6c2ab968ab9f0bd4bbc3477f51f1e02512d11e86fc509f2f6f0e51a7e Status: VALID
     ************************ End Trade Event ************************************
     closebiddingResponse: 
     {"listingId":"l1","offers":[{"bidPrice":100,"memberId":"memberB@acme.org"},{"bidPrice":50,"memberId":"memberA@acme.org"}],"productId":"p1","reservePrice":50,"state":"{\"code\":3,\"text\":\"SOLD\"}"}
