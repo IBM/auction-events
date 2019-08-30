@@ -16,7 +16,7 @@ const config = JSON.parse(configJSON);
 // const connectionProfile = JSON.parse(ccpJSON);
 
 // connect to the IBP connection file 
-const ccpPath = path.join(process.cwd(), 'ibpConnection.json');
+const ccpPath = path.join(process.cwd(), 'mychannel_auction_profile.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const connectionProfile = JSON.parse(ccpJSON);
 
@@ -30,7 +30,7 @@ const walletPath = path.join(process.cwd(), './wallet');
 const wallet = new FileSystemWallet(walletPath);
 console.log(`Wallet path: ${walletPath}`);
 
-const peerIdentity = 'app-admin2';
+const peerIdentity = 'app-admin';
 
 async function contractEvents() {
 
