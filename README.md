@@ -65,6 +65,16 @@ When you have completed this code pattern, you will understand how to:
 - [VSCode version 1.26 or greater](https://code.visualstudio.com)
 - [IBM Blockchain Platform Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
 
+## Prerequisites (Local)
+If you want to run this pattern locally, without any Cloud services, then all you need is VSCode and the
+IBM Blockchain Platform extension. 
+- [Install VSCode](https://code.visualstudio.com/download)
+- [Install IBM Blockchain Platform Extension for VSCode](https://github.com/IBM-Blockchain/blockchain-vscode-extension)
+- [Node v8.x or greater and npm v5.x or greater](https://nodejs.org/en/download/)
+
+# Steps (Local Deployment)
+> To run a local network, you can find steps [here](./docs/run-local.md).
+
 # Running the application
 
 Follow these steps to set up and run this code pattern. The steps are described in detail below.
