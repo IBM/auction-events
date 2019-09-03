@@ -54,6 +54,10 @@ When you have completed this code pattern, you will understand how to:
 + [Node.js](https://nodejs.org) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
 + [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html) provides a powerful API to interact with a Hyperledger Fabric blockchain. 
 
+# Watch the Video - 
+
+[![](docs/doc-images/video.png)](https://www.youtube.com/watch?v=KLWLCjKf5Xw)
+
 
 ### Prerequisites
 - [IBM Cloud account](https://cloud.ibm.com/registration/?target=%2Fdashboard%2Fapps)
@@ -564,7 +568,7 @@ This will create a directory called `wallet` and insert the user Admin along wit
   application$ 
   ```
 
- - In a second terminal window, run `node invoke-emit.js` script to will register a callback function to receive a notification when the `StartBidding` transaction has been committed onto a block.  You will see the following in the terminal:
+ - Nice job! You've now learned how to 
 
 ## Troubleshooting
 
