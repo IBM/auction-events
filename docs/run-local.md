@@ -31,14 +31,14 @@ HoreaPorutiu$ git clone https://github.com/IBM/evote
   *three dot symbol* to the right of *LOCAL FABRIC OPS*
   and then *Start Fabric Runtime*.
   <p align="center">
-    <img src="startFabric.png">
+    <img src="doc-images/startFabric.png">
   </p>
   
 - Once the runtime is finished starting (this might take a couple of minutes), under *Local Fabric 
   Ops* you should see *Smart Contracts* and a section for both *installed* and *instantiated*.
 
   <p align="center">
-    <img src="contracts.png">
+    <img src="doc-images/contracts.png">
   </p>
 
 
@@ -50,7 +50,7 @@ HoreaPorutiu$ git clone https://github.com/IBM/evote
 If all goes well, you should get a notification as shown 
  below.
 
-![packageFile](/docs/successInstall.png)
+![packageFile](/doc-images/successInstall.png)
 
 
 ## Step 4. Instantiate Contract
@@ -59,24 +59,24 @@ You guessed it. Next, it's time to instantiate.
   Click on *+ Instantiate* 
 
 <p align="center">
-  <img src="instantiate.png">
+  <img src="doc-images/instantiate.png">
 </p>
 
 and then choose 
  *mychannel* for the channel to instantiate the contract on.
 
-![packageFile](/docs/channel.png)
+![packageFile](/doc-images/channel.png)
 
 Next, the extension will ask you 
  to choose a smart contract and version to instantiate. Click on *voterContract@6.0.0*.
 
  Next, for the optional function, type in *init*.
-![packageFile](/docs/function.png)
+![packageFile](/doc-images/function.png)
 
 
 Leave the arguments blank, and hit *enter* 
  on your keyboard. 
-![packageFile](/docs/blank.png)
+![packageFile](/doc-images/blank.png)
 
 
  This will instantiate the smart contract. You should see the contract 
@@ -84,7 +84,7 @@ Leave the arguments blank, and hit *enter*
  the version number on the picture.
 
 <p align="center">
-  <img src="instantiated.png">
+  <img src="doc-images/instantiated.png">
 </p>
 
 ## Step 5. Export Connection Details
