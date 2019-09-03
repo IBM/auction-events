@@ -102,7 +102,7 @@ To run the app, we will need to install dependencies for both our front-end and 
   - Run the local scripts <b>(blockEventsLocal.js, contractEventsLocal.js and 
   transactionEventsLocal.js):</b>
     ```javascript
-      application$ node blockEventsLocal.js
+    application$ node blockEventsLocal.js
     Wallet path: /Users/Horea.Porutiu@ibm.com/Workdir/testDir/auction-events/application/local_fabric_wallet
     gateway connect
     *************** start block header **********************
