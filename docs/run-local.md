@@ -50,7 +50,7 @@ HoreaPorutiu$ git clone https://github.com/IBM/evote
 If all goes well, you should get a notification as shown 
  below.
 
-![packageFile](/doc-images/successInstall.png)
+![packageFile](./doc-images/successInstall.png)
 
 
 ## Step 4. Instantiate Contract
