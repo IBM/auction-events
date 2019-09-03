@@ -54,7 +54,7 @@ When you have completed this code pattern, you will understand how to:
 + [Node.js](https://nodejs.org) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
 + [Hyperledger Fabric SDK for node.js](https://fabric-sdk-node.github.io/release-1.4/index.html) provides a powerful API to interact with a Hyperledger Fabric blockchain. 
 
-# Watch the Video - 
+# Watch the Video 
 
 [![](docs/doc-images/video.png)](https://www.youtube.com/watch?v=KLWLCjKf5Xw)
 
