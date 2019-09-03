@@ -21,7 +21,7 @@ this is how the extension builds a development Hyperledger Fabric network with a
 
 Git clone this repo onto your computer in the destination of your choice, then go into the web-app folder:
 ```
-HoreaPorutiu$ git clone https://github.com/IBM/evote
+HoreaPorutiu$ git clone https://github.com/IBM/auction-events
 ```
 
 ## Step 2. Start the Fabric Runtime
@@ -45,7 +45,7 @@ HoreaPorutiu$ git clone https://github.com/IBM/evote
 ## Step 3. Install Contract
 
  Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
- install. Choose *voterContract@7.0.0* which is in your `evote/contract` directory which you just cloned.
+ install. Choose *auction@0.0.1* which is in your `contract` directory which you just cloned.
  
 If all goes well, you should get a notification as shown 
  below.
@@ -68,7 +68,7 @@ and then choose
 ![packageFile](./doc-images/channel.png)
 
 Next, the extension will ask you 
- to choose a smart contract and version to instantiate. Click on *auction@1.0.0*.
+ to choose a smart contract and version to instantiate. Click on *auction@0.0.1*.
 
  Next, for the optional function, type in *instantiate*.
 ![packageFile](./doc-images/function.png)
@@ -80,8 +80,9 @@ Leave the arguments blank, and hit *enter*
 
 
  This will instantiate the smart contract. You should see the contract 
- under the *instantiated* tab on the left-hand side, as shown in the picture. Note: excuse 
- the version number on the picture.
+ under the *instantiated* tab on the left-hand side, as shown in the picture. 
+ 
+ <b>Note: the picture shows voterContract, but yours should have auction@0.0.1</b>
 
 <p align="center">
   <img src="doc-images/instantiated.png">
