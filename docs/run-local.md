@@ -1,6 +1,6 @@
 <!-- [![Build Status](https://travis-ci.org/IBM/blockchainbean.svg?branch=master)](https://travis-ci.org/IBM/blockchainbean) -->
 
-# Create a fair evoting application to ensure correct election results with Hyperledger Fabric and IBM Blockchain Platform (Local)
+# Hyperledger Fabric sample Using Event Handling with the next generation IBM Blockchain Platform
 
 # Steps (Local Deployment)
 

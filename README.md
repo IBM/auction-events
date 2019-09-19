@@ -1,6 +1,6 @@
 # auction-events
 
->Hyperledger Fabric sample Using Event Handling with IBM Blockchain Platform V2.0
+>Hyperledger Fabric sample Using Event Handling with the next generation IBM Blockchain Platform 
 
 This code pattern demonstrates leveraging the event handling feature within an application that is based on using an IKS cluster with IBM Blockchain Platform V2.0 service on IBM Cloud.  We apply this use case to an auction use case. It shows how events can be emitted by using the Hyperledger Fabric SDK and subscribed to by external applications.  The application is implemented in Node.js and is using the Hyperledger Fabric SDK for node.js to connect with the network, set up an event listener and catch tranactional events.
 
