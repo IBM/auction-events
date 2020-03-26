@@ -44,7 +44,7 @@ version to work.
 ![importContract](https://user-images.githubusercontent.com/10428517/76371236-e0ba3d00-62f6-11ea-82a1-bfa4798985b9.gif)
 - Next, we have to import our contract before we can install it. Click on 
 **View -> Open Command Pallette -> Import Smart Contract**. Next, click 
-on the `gensupplychainnet@0.0.1.cds` file that is at the root of our directory.
+on the `auction@0.0.1.cds` file that is in the `contract` directory.
 This will be where you cloned this repo.
 
 ![installAndInstantiate](https://user-images.githubusercontent.com/10428517/76371514-bae16800-62f7-11ea-9038-039b0fac6967.gif)
@@ -58,7 +58,30 @@ policy, hit `enter` on your keyboard, which will take all of the defaults.
 is finished instantiating.
 
 
-## Step 5. Run the App
+## Step 4. Export Connection Details
+![connectAsAdmin](https://media.github.ibm.com/user/79254/files/df1ec800-6781-11ea-9085-6fc2089d4cb0)
+
+- Under `FABRIC GATEWAYS`, click on `1 Org Local Fabric - Org1` gateway.
+- When asked to choose an identity to connect with, choose `admin`.
+- Once you are connected, you should see `connected via gateway: 1 Org Local Fabric` 
+under the `FABRIC GATEWAYS` tab as shown in the gif below.
+
+![export](https://user-images.githubusercontent.com/10428517/76371002-fd09aa00-62f5-11ea-9f6b-cc25e68c410e.gif)
+
+- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to fabric-contract-role-based-access-control/gateway/local/fabric_connection.json. 
+
+## Step 5. Export Local Wallet
+![wallet](https://user-images.githubusercontent.com/10428517/76375176-65f71f00-6302-11ea-8071-d68192905a91.gif)
+- 🚨Under the `FABRIC WALLETS` pane, click on `1 Org Local Fabric - Org1 Wallet`. Note this is very important, if you click on the Orderer wallet at the top, 
+the application will not work! 🚨
+- Export and save the wallet to `fabric-contract-role-based-access-control/gateway/local/gen_local_wallet`
+- Once you're done exporting the wallet and the connection profile, your directory 
+structure should look like below:
+
+![dirStruct](https://media.github.ibm.com/user/79254/files/21cb6200-645b-11ea-8dbd-00806fc391a8)
+
+
+## Step 6. Run the App
 To run the app, we will need to install dependencies for both our front-end and our back-end. 
 
 #### Start the Server
