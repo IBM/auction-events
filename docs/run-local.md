@@ -25,23 +25,20 @@ HoreaPorutiu$ git clone https://github.com/IBM/auction-events
 ```
 
 ## Step 2. Start the Fabric Runtime
+
+![startRuntime](https://user-images.githubusercontent.com/10428517/76370968-dea3ae80-62f5-11ea-8793-d04610e8bf30.gif)
+
+- If you get errors like the gRPC error, you may need to download an earlier version of VSCode (1.39) [here](https://code.visualstudio.com/updates/v1_39). Note that if you are using Mac, make sure the VSCode in your ~/Applications
+folder shows version 1.39 when you click on show details. You may need to 
+move newer version into the trash, and then empty the trash for the older 
+version to work.
+
 - First, we need to go to our IBM Blockchain Extension. Click on the IBM Blockchain icon
   in the left side of VSCode (It looks like a square). 
-- Next, start your local fabric by clicking on the 
-  *three dot symbol* to the right of *LOCAL FABRIC OPS*
-  and then *Start Fabric Runtime*.
-  <p align="center">
-    <img src="doc-images/startFabric.png">
-  </p>
+- Next, start your local fabric by clicking on 
+  *1 Org Local Fabric* in the **FABRIC ENVIRONMENTS** pane.
   
-- Once the runtime is finished starting (this might take a couple of minutes), under *Local Fabric 
-  Ops* you should see *Smart Contracts* and a section for both *installed* and *instantiated*.
-
-  <p align="center">
-    <img src="doc-images/contracts.png">
-  </p>
-
-
+- Once the runtime is finished starting (this might take a couple of minutes), under *Local Fabric* you should see *Smart Contracts* and a section for both *installed* and *instantiated*.
 ## Step 3. Install Contract
 
  Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
