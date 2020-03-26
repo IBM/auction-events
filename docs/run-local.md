@@ -59,7 +59,7 @@ is finished instantiating.
 
 
 ## Step 4. Export Connection Details
-* <b>Note that in the gif we export the connection profile to a different locaiton, but the process is the same</b>
+* <b>Note that in the gif we export the connection profile to a different locaiton, / has a different name, but the process is the same</b>
 ![connectAsAdmin](https://media.github.ibm.com/user/79254/files/df1ec800-6781-11ea-9085-6fc2089d4cb0)
 
 - Under `FABRIC GATEWAYS`, click on `1 Org Local Fabric - Org1` gateway.
@@ -69,17 +69,19 @@ under the `FABRIC GATEWAYS` tab as shown in the gif below.
 
 ![export](https://user-images.githubusercontent.com/10428517/76371002-fd09aa00-62f5-11ea-9f6b-cc25e68c410e.gif)
 
-- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to fabric-contract-role-based-access-control/application/fabric_connection.json. 
+- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to auction-events/application/local_fabric_connection.json. 
 
 ## Step 5. Export Local Wallet
+* <b>Note that in the gif we export the wallet to a different location / has a different name, but the process is the same</b>
+
 ![wallet](https://user-images.githubusercontent.com/10428517/76375176-65f71f00-6302-11ea-8071-d68192905a91.gif)
 - 🚨Under the `FABRIC WALLETS` pane, click on `1 Org Local Fabric - Org1 Wallet`. Note this is very important, if you click on the Orderer wallet at the top, 
 the application will not work! 🚨
-- Export and save the wallet to `fabric-contract-role-based-access-control/gateway/local/gen_local_wallet`
+- Export and save the wallet to `auction-events/application/local_fabric_wallet`
 - Once you're done exporting the wallet and the connection profile, your directory 
 structure should look like below:
 
-![dirStruct](https://media.github.ibm.com/user/79254/files/21cb6200-645b-11ea-8dbd-00806fc391a8)
+![dirStruct](https://user-images.githubusercontent.com/10428517/77702298-6be13700-6f75-11ea-8424-64a4ff5571a2.png)
 
 
 ## Step 6. Run the App
