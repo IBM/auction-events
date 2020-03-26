@@ -69,7 +69,7 @@ under the `FABRIC GATEWAYS` tab as shown in the gif below.
 
 ![export](https://user-images.githubusercontent.com/10428517/76371002-fd09aa00-62f5-11ea-9f6b-cc25e68c410e.gif)
 
-- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to auction-events/application/local_fabric_connection.json. 
+- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to `auction-events/application/local_fabric_connection.json`. 
 
 ## Step 5. Export Local Wallet
 * <b>Note that in the gif we export the wallet to a different location / has a different name, but the process is the same</b>
