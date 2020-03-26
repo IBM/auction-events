@@ -52,7 +52,8 @@ This will be where you cloned this repo.
  install. Choose *auction@0.0.1.cds*.
 - Lastly, we need to instantiate the contract to be able to submit transactions 
 on our network. Click on *+ Instantiate* and then choose *auction@0.0.1*.
-- When promted for a function, a private data collection, or and endorsement 
+- 🚨When promted for a function type in `instantiate`. This is very important, since if we do not call this function, we will get errors later on. 🚨
+- When prompted for a private data collection, or and endorsement 
 policy, hit `enter` on your keyboard, which will take all of the defaults.
 - This will instantiate the smart contract. This may take some time. You should see the contract under the *instantiated* tab on the left-hand side, once it 
 is finished instantiating.
