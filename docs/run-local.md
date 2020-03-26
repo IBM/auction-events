@@ -39,51 +39,23 @@ version to work.
   *1 Org Local Fabric* in the **FABRIC ENVIRONMENTS** pane.
   
 - Once the runtime is finished starting (this might take a couple of minutes), under *Local Fabric* you should see *Smart Contracts* and a section for both *installed* and *instantiated*.
-## Step 3. Install Contract
+## Step 3. Install and Instantiate Contract
+* <b>Note that in the gif we install a different contract, but the process is the same</b>
+![importContract](https://user-images.githubusercontent.com/10428517/76371236-e0ba3d00-62f6-11ea-82a1-bfa4798985b9.gif)
+- Next, we have to import our contract before we can install it. Click on 
+**View -> Open Command Pallette -> Import Smart Contract**. Next, click 
+on the `gensupplychainnet@0.0.1.cds` file that is at the root of our directory.
+This will be where you cloned this repo.
 
- Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
- install. Choose *auction@0.0.1* which is in your `contract` directory which you just cloned.
- 
-If all goes well, you should get a notification as shown 
- below.
-
-![packageFile](./doc-images/successInstall.png)
-
-
-## Step 4. Instantiate Contract
-You guessed it. Next, it's time to instantiate. 
- 
-  Click on *+ Instantiate* 
-
-<p align="center">
-  <img src="doc-images/instantiate.png">
-</p>
-
-and then choose 
- *mychannel* for the channel to instantiate the contract on.
-
-![packageFile](./doc-images/channel.png)
-
-Next, the extension will ask you 
- to choose a smart contract and version to instantiate. Click on *auction@0.0.1*.
-
- Next, for the optional function, type in *instantiate*.
-![packageFile](./doc-images/function.png)
-
-
-Leave the arguments blank, and hit *enter* 
- on your keyboard. 
-![packageFile](./doc-images/blank.png)
-
-
- This will instantiate the smart contract. You should see the contract 
- under the *instantiated* tab on the left-hand side, as shown in the picture. 
- 
- <b>Note: the picture shows voterContract, but yours should have auction@0.0.1</b>
-
-<p align="center">
-  <img src="doc-images/instantiated.png">
-</p>
+![installAndInstantiate](https://user-images.githubusercontent.com/10428517/76371514-bae16800-62f7-11ea-9038-039b0fac6967.gif)
+- Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
+ install. Choose *auction@0.0.1.cds*.
+- Lastly, we need to instantiate the contract to be able to submit transactions 
+on our network. Click on *+ Instantiate* and then choose *auction@0.0.1*.
+- When promted for a function, a private data collection, or and endorsement 
+policy, hit `enter` on your keyboard, which will take all of the defaults.
+- This will instantiate the smart contract. This may take some time. You should see the contract under the *instantiated* tab on the left-hand side, once it 
+is finished instantiating.
 
 
 ## Step 5. Run the App
