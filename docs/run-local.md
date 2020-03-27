@@ -6,10 +6,10 @@
 
 1. [Clone the Repo](#step-1-clone-the-repo)
 2. [Start the Fabric Runtime](#step-2-start-the-fabric-runtime)
-3. [Install Contract](#step-3-install-contract)
-4. [Instantiate Contract](#step-4-Instantiate-contract)
-5. [Export Connection Details](#step-5-export-connection-details)
-6. [Run the App](#step-5-run-the-app)
+3. [Install and Instantiate Contract](#step-3-install-and-instantiate-contract)
+4. [Export Connection Details](#step-4-export-connection-details)
+5. [Export Local Wallet](#step-5-export-local-wallet)
+6. [Run the App](#step-6-run-the-app)
 
 Note: This repo assumes you have [VSCode](https://code.visualstudio.com/download) 
 and [IBM Blockchain VSCode extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) installed. If you don't, first install the 
@@ -39,54 +39,53 @@ version to work.
   *1 Org Local Fabric* in the **FABRIC ENVIRONMENTS** pane.
   
 - Once the runtime is finished starting (this might take a couple of minutes), under *Local Fabric* you should see *Smart Contracts* and a section for both *installed* and *instantiated*.
-## Step 3. Install Contract
+## Step 3. Install and Instantiate Contract
+* <b>Note that in the gif we install a different contract, but the process is the same</b>
+![importContract](https://user-images.githubusercontent.com/10428517/76371236-e0ba3d00-62f6-11ea-82a1-bfa4798985b9.gif)
+- Next, we have to import our contract before we can install it. Click on 
+**View -> Open Command Pallette -> Import Smart Contract**. Next, click 
+on the `auction@0.0.1.cds` file that is in the `contract` directory.
+This will be where you cloned this repo.
 
- Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
- install. Choose *auction@0.0.1* which is in your `contract` directory which you just cloned.
- 
-If all goes well, you should get a notification as shown 
- below.
-
-![packageFile](./doc-images/successInstall.png)
-
-
-## Step 4. Instantiate Contract
-You guessed it. Next, it's time to instantiate. 
- 
-  Click on *+ Instantiate* 
-
-<p align="center">
-  <img src="doc-images/instantiate.png">
-</p>
-
-and then choose 
- *mychannel* for the channel to instantiate the contract on.
-
-![packageFile](./doc-images/channel.png)
-
-Next, the extension will ask you 
- to choose a smart contract and version to instantiate. Click on *auction@0.0.1*.
-
- Next, for the optional function, type in *instantiate*.
-![packageFile](./doc-images/function.png)
+![installAndInstantiate](https://user-images.githubusercontent.com/10428517/76371514-bae16800-62f7-11ea-9038-039b0fac6967.gif)
+- Now, let's click on *+ Install* and choose the peer that is available. Then the extension will ask you which package to 
+ install. Choose *auction@0.0.1.cds*.
+- Lastly, we need to instantiate the contract to be able to submit transactions 
+on our network. Click on *+ Instantiate* and then choose *auction@0.0.1*.
+- 🚨When promted for a function type in `instantiate`. This is very important, since if we do not call this function, we will get errors later on. 🚨
+- When prompted for a private data collection, or and endorsement 
+policy, hit `enter` on your keyboard, which will take all of the defaults.
+- This will instantiate the smart contract. This may take some time. You should see the contract under the *instantiated* tab on the left-hand side, once it 
+is finished instantiating.
 
 
-Leave the arguments blank, and hit *enter* 
- on your keyboard. 
-![packageFile](./doc-images/blank.png)
+## Step 4. Export Connection Details
+* <b>Note that in the gif we export the connection profile to a different locaiton, / has a different name, but the process is the same</b>
+![connectAsAdmin](https://media.github.ibm.com/user/79254/files/df1ec800-6781-11ea-9085-6fc2089d4cb0)
+
+- Under `FABRIC GATEWAYS`, click on `1 Org Local Fabric - Org1` gateway.
+- When asked to choose an identity to connect with, choose `admin`.
+- Once you are connected, you should see `connected via gateway: 1 Org Local Fabric` 
+under the `FABRIC GATEWAYS` tab as shown in the gif below.
+
+![export](https://user-images.githubusercontent.com/10428517/76371002-fd09aa00-62f5-11ea-9f6b-cc25e68c410e.gif)
+
+- To export your connection profile, right click on the 3 dot menu on the **FABRIC GATEWAYS** pane and `Export Connection Profile` Save this file to `auction-events/application/local_fabric_connection.json`. 
+
+## Step 5. Export Local Wallet
+* <b>Note that in the gif we export the wallet to a different location / has a different name, but the process is the same</b>
+
+![wallet](https://user-images.githubusercontent.com/10428517/76375176-65f71f00-6302-11ea-8071-d68192905a91.gif)
+- 🚨Under the `FABRIC WALLETS` pane, click on `1 Org Local Fabric - Org1 Wallet`. Note this is very important, if you click on the Orderer wallet at the top, 
+the application will not work! 🚨
+- Export and save the wallet to `auction-events/application/local_fabric_wallet`
+- Once you're done exporting the wallet and the connection profile, your directory 
+structure should look like below:
+
+![dirStruct](https://user-images.githubusercontent.com/10428517/77702298-6be13700-6f75-11ea-8424-64a4ff5571a2.png)
 
 
- This will instantiate the smart contract. You should see the contract 
- under the *instantiated* tab on the left-hand side, as shown in the picture. 
- 
- <b>Note: the picture shows voterContract, but yours should have auction@0.0.1</b>
-
-<p align="center">
-  <img src="doc-images/instantiated.png">
-</p>
-
-
-## Step 5. Run the App
+## Step 6. Run the App
 To run the app, we will need to install dependencies for both our front-end and our back-end. 
 
 #### Start the Server
