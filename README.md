@@ -62,7 +62,7 @@ When you have completed this code pattern, you will understand how to:
 ### Prerequisites
 - [IBM Cloud account](https://cloud.ibm.com/registration/?target=%2Fdashboard%2Fapps)
 - [Node v8.x or greater and npm v5.x or greater](https://nodejs.org/en/download/)
-- [VSCode version 1.39 or greater](https://code.visualstudio.com) 🚨later versions may not work🚨
+- [VSCode version 1.39 or greater](https://code.visualstudio.com) 🚨later versions may not work due to this [bug](https://github.com/IBM-Blockchain/blockchain-vscode-extension/issues/1621)🚨
 - [IBM Blockchain Platform Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
 
 ## Prerequisites (Local)
