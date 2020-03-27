@@ -6,10 +6,10 @@
 
 1. [Clone the Repo](#step-1-clone-the-repo)
 2. [Start the Fabric Runtime](#step-2-start-the-fabric-runtime)
-3. [Install Contract](#step-3-install-contract)
-4. [Instantiate Contract](#step-4-Instantiate-contract)
-5. [Export Connection Details](#step-5-export-connection-details)
-6. [Run the App](#step-5-run-the-app)
+3. [Install and Instantiate Contract](#step-3-install-and-instantiate-contract)
+4. [Export Connection Details](#step-4-export-connection-details)
+5. [Export Local Wallet](#step-5-export-local-wallet)
+6. [Run the App](#step-6-run-the-app)
 
 Note: This repo assumes you have [VSCode](https://code.visualstudio.com/download) 
 and [IBM Blockchain VSCode extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) installed. If you don't, first install the 
